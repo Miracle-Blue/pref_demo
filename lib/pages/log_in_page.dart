@@ -1,21 +1,20 @@
+import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pref_demo/log_in_page.dart';
+import 'package:pref_demo/pages/sign_up_page.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class LogInPage extends StatefulWidget {
+  const LogInPage({Key? key}) : super(key: key);
 
-  static final String id = "sign_up_page";
+  static final String id = "log_in_page";
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _LogInPageState createState() => _LogInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController _nameController = TextEditingController();
+class _LogInPageState extends State<LogInPage> {
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool _isObscur = false;
 
@@ -27,10 +26,17 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Container(
           padding: EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Center(
+                child: Image(
+                  image: AssetImage('assets/images/img.png'),
+                  width: 250,
+                  height: 280,
+                ),
+              ),
               Text(
-                "Let's get Started!",
+                "Welcome back!",
                 style: GoogleFonts.mcLaren(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -38,36 +44,10 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               SizedBox(height: 5),
               Text(
-                "Create an account to Q Allure to get all features",
+                "Log in to your existent account of Q Allure",
                 style: GoogleFonts.mcLaren(color: Colors.grey.shade600),
               ),
               SizedBox(height: 40),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      MediaQuery.of(context).size.height / 2),
-                  color: Colors.white,
-                ),
-                child: TextField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.height / 2),
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                          width: 2,
-                        )),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.height / 2),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(FeatherIcons.user),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
@@ -89,37 +69,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           MediaQuery.of(context).size.height / 2),
                       borderSide: BorderSide.none,
                     ),
-                    prefixIcon: Icon(FeatherIcons.mail),
+                    prefixIcon: Icon(FeatherIcons.user),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      MediaQuery.of(context).size.height / 2),
-                  color: Colors.white,
-                ),
-                child: TextField(
-                  controller: _phoneController,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.height / 2),
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                          width: 2,
-                        )),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.height / 2),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(FeatherIcons.phone),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
@@ -156,44 +110,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   obscureText: _isObscur,
                 ),
               ),
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      MediaQuery.of(context).size.height / 2),
-                  color: Colors.white,
-                ),
-                child: TextField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.height / 2),
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                          width: 2,
-                        )),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.height / 2),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: Icon(FeatherIcons.lock),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _isObscur = !_isObscur;
-                        });
-                      },
-                      icon: _isObscur
-                          ? Icon(FeatherIcons.eyeOff)
-                          : Icon(FeatherIcons.eye),
+              SizedBox(height: 10),
+              GestureDetector(
+                onTap: () {},
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    "Forget password?",
+                    style: GoogleFonts.mcLaren(
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
-                  obscureText: _isObscur,
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
               TextButton(
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
@@ -205,32 +135,89 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 onPressed: () {},
                 child: Text(
-                  "Create",
+                  "Log In",
                   style: GoogleFonts.mcLaren(
                     fontSize: 25,
                     color: Colors.white,
                   ),
                 ),
               ),
+              SizedBox(height: 30),
+              Text(
+                "Or connect using",
+                style: GoogleFonts.mcLaren(color: Colors.grey.shade600),
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue.shade900,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      icon: Icon(
+                        AntIcons.facebookFilled,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () {},
+                      label: Text(
+                        "Facebook",
+                        style: GoogleFonts.mcLaren(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {},
+                      icon: Icon(
+                        AntIcons.googleOutlined,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      label: Text(
+                        "Google",
+                        style: GoogleFonts.mcLaren(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
-                height: 120,
+                height: 40,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already have an account?",
+                    "Don't have an account?",
                     style: GoogleFonts.mcLaren(color: Colors.black),
                   ),
                   SizedBox(width: 5),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, LogInPage.id);
+                      Navigator.pushReplacementNamed(context, SignUpPage.id);
                     },
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        "LogIn here",
+                        "Sign Up",
                         style: GoogleFonts.mcLaren(
                           color: Colors.blue,
                           fontWeight: FontWeight.w800,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pref_demo/model/user_model.dart';
+import 'package:pref_demo/pages/home_page.dart';
 import 'package:pref_demo/pages/log_in_page.dart';
 import 'package:pref_demo/services/pref_service.dart';
 
@@ -21,39 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordController1 = TextEditingController();
   TextEditingController _passwordController2 = TextEditingController();
   bool _isObscur = false;
-
   bool isFull = false;
-  String warning = '';
-
-  void _dialog(String text) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Warning'),
-            content: Text(text),
-            actions: [
-              isFull ? TextButton(onPressed: () {
-                Navigator.pushReplacementNamed(context, LogInPage.id);
-                },
-                  child: Text('Login in'))
-                  : TextButton(onPressed: _clear, child: Text('Clear')),
-            ],
-          );
-        }
-    );
-  }
-
-  bool _alreadySignUp() {
-    Prefs.loadUser().then((user){
-      if(user != null) {
-        setState(() {
-          isFull = true;
-        });
-      }
-    });
-    return isFull;
-  }
 
   void _clear() {
     Prefs.removeUser();
@@ -64,41 +33,34 @@ class _SignUpPageState extends State<SignUpPage> {
     _phoneController.clear();
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _alreadySignUp();
-  }
 
   void _doSignUp(bool _isFull) {
-    if(_isFull) {
-      setState(() {
-        warning = 'Already you have an account, back to Sign In';
-      });
-      _dialog(warning);
-    } else {
       String email = _emailController.text.toString().trim();
-      String password = _passwordController1.text.toString().trim();
+      String password_1 = _passwordController1.text.toString().trim();
+      String password_2 = _passwordController2.text.toString().trim();
       String name = _nameController.text.toString().trim();
       String pNumber = _phoneController.text.toString().trim();
 
       User user =
-      User(email: email, password: password, name: name, pNumber: pNumber);
+      User(email: email, password: password_1, name: name, pNumber: pNumber);
       Prefs.storeUser(user);
 
       setState(() {
         isFull =
-            email.length != 0 && password.length != 0 && pNumber.length != 0 &&
+                email.length != 0 &&
+                password_1.length != 0 &&
+                password_2.length != 0 &&
+                pNumber.length != 0 &&
                 name.length != 0;
       });
 
-      if (isFull) {
-        Navigator.pushReplacementNamed(context, LogInPage.id);
+      if (isFull && password_1 == password_2) {
+        Navigator.pushReplacementNamed(context, HomePage.id);
       } else {
-        _dialog('Try again!');
+        setState(() {
+          _clear();
+        });
       }
-    }
   }
 
   @override
@@ -109,7 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
           iconSize: 30,
             icon: Icon(FeatherIcons.arrowLeft),
             color: Colors.black,
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pushReplacementNamed(context, LogInPage.id),
           ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -395,7 +357,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               SizedBox(
-                height: 70,
+                height: 50,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

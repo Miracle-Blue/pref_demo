@@ -2,6 +2,7 @@ import 'package:antdesign_icons/antdesign_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pref_demo/model/user_model.dart';
 import 'package:pref_demo/pages/home_page.dart';
 import 'package:pref_demo/pages/sign_up_page.dart';
 import 'package:pref_demo/services/pref_service.dart';
@@ -20,9 +21,10 @@ class _LogInPageState extends State<LogInPage> {
   TextEditingController _passwordController = TextEditingController();
   bool _isObscur = false;
 
+
   void _doLogIn() {
-    String email = _emailController.toString().trim();
-    String password = _passwordController.toString().trim();
+    String email = _emailController.text.toString().trim();
+    String password = _passwordController.text.toString().trim();
 
     Prefs.loadUser().then((user) {
       setState(() {
@@ -31,21 +33,9 @@ class _LogInPageState extends State<LogInPage> {
         } else {
           _emailController.clear();
           _passwordController.clear();
-          _dialog("Password or email is invalid! Try again!");
         }
       });
     });
-  }
-
-  void _dialog(String text) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Warning"),
-            content: Text(text),
-          );
-        });
   }
 
   @override
